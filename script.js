@@ -25,6 +25,14 @@ class ToDo {
             button.innerText = 'Usuń'
 
             button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
+
+            li.addEventListener('click', function () {
+                if (this.style.textDecoration == 'line-through') {
+                    this.style.textDecoration = 'none'
+                } else {
+                    this.style.textDecoration = 'line-through'
+                }
+            })
             li.appendChild(button)
             ul.appendChild(li)
             document.body.appendChild(ul)
