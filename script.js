@@ -7,39 +7,50 @@ class ToDo {
 
     addTask(text) {
         this.tasks.push(new Task(text))
-
         this.render()
     }
 
-    render(){
+    render() {
         document.body.innerHTML = ''
-
-        this.makeUI()
 
         const ul = document.createElement('ul')
 
-        this.tasks.forEach(task =>{
-            const li = document.createElement('li')
-            li.innerText = task.text
-            ul.appendChild(li)
-        })
+        this.makeUI()
 
-        document.body.appendChild(ul)
+        this.tasks.forEach((task, index) => {
+            const li = document.createElement('li')
+            const button = document.createElement('button')
+
+            li.innerText = task.text
+            button.innerText = 'Usuń'
+
+            button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
+            li.appendChild(button)
+            ul.appendChild(li)
+            document.body.appendChild(ul)
+        })
     }
 
     makeUI() {
         const input = document.createElement('input')
-        const button = document.createElement('button')
-        button.innerText = 'Dodaj zadanie'
+        const addButton = document.createElement('button')
+        addButton.innerText = 'Dodaj zadanie'
 
-        button.addEventListener(
+        addButton.addEventListener(
             'click',
             () => this.addTask(input.value)
         )
 
         document.body.appendChild(input)
-        document.body.appendChild(button)
+        document.body.appendChild(addButton)
     }
+
+    deleteClickHandler(e, index) {
+        e.stopPropagation()
+        this.tasks = this.tasks.slice(0, index).concat(this.tasks.slice(index + 1))
+        this.render()
+    }
+
 }
 
 class Task {
