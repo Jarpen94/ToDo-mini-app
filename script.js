@@ -68,3 +68,4 @@ class Task {
 }
 
 const toDo1 = new ToDo()
+/* komentarz sprawdzający*/
